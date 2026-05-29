@@ -12,8 +12,8 @@
 
 | File | Description |
 |------|-------------|
-| `01_training.ipynb` | Fine-tunes OpenAI Whisper Tiny on the FLEURS Malayalam dataset |
-| `02_ggml_conversion.ipynb` | Converts the trained model to GGML binary format for Android deployment |
+| `finetune-malayalam-asrmodel.ipynb` | Fine-tunes OpenAI Whisper Tiny on the FLEURS Malayalam dataset |
+| `model-to-ggml-compression.ipynb` | Converts the trained model to GGML binary format for Android deployment |
 
 Both notebooks are designed to run on **Google Colab** with a free T4 GPU. No local GPU or paid resources are required.
 
@@ -27,10 +27,10 @@ The core idea is simple: farmers and elderly citizens in rural Kerala often cann
 
 The pipeline has two stages, one notebook each:
 
-**Stage 1 — Fine-Tuning (`01_training.ipynb`)**
+**Stage 1 — Fine-Tuning**
 Takes the pre-trained `openai/whisper-tiny` model (which already knows some Malayalam from its original training) and fine-tunes it specifically on the FLEURS Malayalam dataset. This teaches the model to better recognize Malayalam speech patterns and produces a HuggingFace-format model saved to Google Drive.
 
-**Stage 2 — GGML Conversion (`02_ggml_conversion.ipynb`)**
+**Stage 2 — GGML Conversion**
 Takes the fine-tuned HuggingFace model and converts it to the GGML binary format using the [whisper.cpp](https://github.com/ggerganov/whisper.cpp) conversion script. GGML is a compressed, CPU-optimized format that reduces the model from ~150 MB to ~75 MB and allows it to run inference on a smartphone without a GPU or internet connection.
 
 The resulting `ggml-model.bin` file is then placed inside the Android app.
@@ -72,9 +72,9 @@ The resulting `ggml-model.bin` file is then placed inside the Android app.
 
 Go to [colab.research.google.com](https://colab.research.google.com)
 
-Upload `01_training.ipynb`:
+Upload `finetune-malayalam-asrmodel.ipynb`:
 ```
-File → Upload notebook → select 01_training.ipynb
+File → Upload notebook → select finetune-malayalam-asrmodel.ipynb
 ```
 
 ---
@@ -140,9 +140,9 @@ Checkpoints are saved to Drive every 1,000 steps so you will not lose more than 
 
 Open a **new Colab session** (you do not need a GPU for this step, but it works fine with one).
 
-Upload `02_ggml_conversion.ipynb`:
+Upload `model-to-ggml-compression.ipynb`:
 ```
-File → Upload notebook → select 02_ggml_conversion.ipynb
+File → Upload notebook → select model-to-ggml-compression.ipynb
 ```
 
 Run each cell in order:
